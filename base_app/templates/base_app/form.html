@@ -1,0 +1,11 @@
+{% load bootstrap5 %}
+<form action="" method="{{ method }}">
+  {% block fields %}
+    {% bootstrap_form form exclude=exclude bound_css_class=bound_css_class error_css_class=error_css_class %}
+  {% endblock fields %}
+  <div class="text-end">
+    <button type="submit" class="btn btn-primary text-capitalize">
+      {{ submit|default:'submit' }}
+    </button>
+  </div>
+</form>

@@ -1,0 +1,25 @@
+{% extends 'base_app/base.html' %}
+{% load customs %}
+{% block content %}
+  <section class="">
+    <div>
+      {% with form=form method=method %}
+        {% include 'base_app/search_form.html' %}
+      {% endwith %}
+    </div>
+    <h1 class="text-primary text-capitalize fw-bold text-center">
+      vacancies
+    </h1>
+    <div class="d-flex flex-column my-4 gap-3">
+      {% for vacancy in page_obj %}
+        {% with vacancy=vacancy %}
+          {% include 'base_app/mini-vacancy.html' %}
+        {% endwith %}
+      {% endfor %}
+    </div>
+    <div class="d-flex justify-content-center mt-5">
+      {% paginate page_obj count=4 request=request %}
+    </div>
+  </section>
+{% endblock content %}
+<!-- from .templatetags import ass  -->

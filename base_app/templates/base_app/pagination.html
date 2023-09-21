@@ -1,0 +1,49 @@
+<nav id="pagNav" aria-label="Page navigation example">
+  <ul class="pagination">
+    {% if left_pages %}
+      {% with previous=page_obj.previous_page_number %}
+        <li class="page-item">
+          <a class="page-link bg-primary text-white"
+             href="?{{ params }}1#pagNav"
+             aria-label="Previous">
+            <span aria-hidden="true">First</span>
+          </a>
+        </li>
+        <li class="page-item">
+          <a class="page-link bg-primary text-white"
+             href="?{{ params }}{{ previous }}#pagNav"
+             aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+        {% with pages=left_pages %}
+          {% include 'base_app/pages.html' %}
+        {% endwith %}
+      {% endwith %}
+    {% endif %}
+    <li class="page-item">
+      <a class="page-link bg-primary text-white">{{ page_obj.number }}</a>
+    </li>
+    {% if right_pages %}
+      {% with next=page_obj.next_page_number %}
+        {% with pages=right_pages %}
+          {% include 'base_app/pages.html' %}
+        {% endwith %}
+        <li class="page-item">
+          <a class="page-link bg-primary text-white"
+             href="?{{ params }}{{ next }}#pagNav"
+             aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+        <li class="page-item">
+          <a class="page-link bg-primary text-white"
+             href="?{{ params }}{{ page_obj.paginator.num_pages }}#pagNav"
+             aria-label="Previous">
+            <span aria-hidden="true">Last</span>
+          </a>
+        </li>
+      {% endwith %}
+    {% endif %}
+  </ul>
+</nav>

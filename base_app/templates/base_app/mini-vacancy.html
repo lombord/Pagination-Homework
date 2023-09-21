@@ -1,0 +1,49 @@
+{% load humanize %}
+<div class="card">
+  <div class="card-body p-sm-4">
+    <h2 class="card-title text-center lh text-capitalize">
+      {{ vacancy.title }}
+      <span class="badge bg-primary fs-5">
+        {{ vacancy.salary|intcomma }}$
+      </span>
+    </h2>
+    <div class="d-flex flex-wrap gap-2 mt-3">
+      <span class="badge bg-danger fs-6">
+        <i class="fa-solid fa-code"></i>
+      </span>
+      {% for lang in vacancy.languages.all %}
+        <span class="badge bg-info fs-6 shadow-sm">{{ lang.name }}</span>
+      {% endfor %}
+    </div>
+    <div class="d-flex flex-wrap gap-2 mt-3">
+      <h3 class="h4">
+        <span class="badge bg-success"><i class="fa-solid fa-users"></i></span>
+        <span class="badge bg-body-tertiary text-body border">
+          {{ vacancy.company.name }}
+        </span>
+      </h3>
+      <div class="flex-grow-1 text-end">
+        <h3 class="h4">
+          <span class="badge
+                       {% if vacancy.status == 'junior' %}
+                         bg-primary
+                       {% elif vacancy.status == 'middle' %}
+                         bg-warning
+                       {% else %}
+                         bg-danger
+                       {% endif %}">{{ vacancy.get_status_display }}</span>
+        </h3>
+      </div>
+    </div>
+    <div class="p-4 mt-4 bg-secondary rounded-3 bg-opacity-10">
+      {% block content %}
+        <p class="card-text">
+          {{ vacancy.description|truncatechars:130 }}
+        </p>
+        <div class="text-end">
+          <a href="{{ vacancy.get_absolute_url }}" class="btn btn-primary">Check</a>
+        </div>
+      {% endblock content %}
+    </div>
+  </div>
+</div>
